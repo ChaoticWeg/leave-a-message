@@ -1,0 +1,7 @@
+main: cc.chaoticweg.mc.LeaveAMessage.LAMPlugin
+
+name: LeaveAMessage
+version: 0.1
+author: ChaoticWeg
+
+description: Leave a message for another player, whether they're online or not
