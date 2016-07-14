@@ -33,7 +33,7 @@ public class LAMCommandExecutor implements CommandExecutor {
             OfflinePlayer recipientPlayer = main.lookUpPlayerByName(recipientName);
 
             if (recipientPlayer == null) {
-                sender.sendMessage(ChatColor.RED + "No such player: " + recipientName + ChatColor.RESET);
+                sender.sendMessage("[LAM] - " + ChatColor.RED + "No such player: " + recipientName + ChatColor.RESET);
                 return true;
             }
 
@@ -44,7 +44,7 @@ public class LAMCommandExecutor implements CommandExecutor {
                 sender.sendMessage("[LAM] - " + ChatColor.GREEN + recipientName + " is online!");
             } else {
                 // TODO recipient is NOT online, store message in database
-                sender.sendMessage("[LAM] - " + ChatColor.YELLOW + recipientName + " exists! But they are offline.");
+                sender.sendMessage("[LAM] - " + ChatColor.YELLOW + "A player named " + recipientName + " exists! But they are offline.");
             }
 
             sender.sendMessage("[LAM] - " + ChatColor.GOLD + "We can't send messages yet.");
