@@ -8,6 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
+/**
+ * Main class, as far as CraftBukkit is concerned. This must be the class pointed to by {@code main} in plugin.yml
+ */
 public class LAMPlugin extends JavaPlugin {
 
     private Logger log;
@@ -23,6 +26,14 @@ public class LAMPlugin extends JavaPlugin {
         log.info("Enabled.");
     }
 
+
+    /**
+     * Look up a player (offline or online) by display name. This is not case sensitive.
+     *
+     * @param name The name of the player
+     * @return A {@link Player} if the player exists and is online, an {@link OfflinePlayer} if the player exists and is
+     * offline, or {@code null} if a player by that name has never joined this server.
+     */
     public OfflinePlayer lookUpPlayerByName(String name) {
         if (name == null || name.equals("")) {
             // name is null or empty. this should be checked for before calling this function, so this is Very Bad
