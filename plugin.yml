@@ -10,4 +10,4 @@ commands:
     msg:
         description: Leave a message for another player.
         usage: |
-            Usage: /msg <recipient> <message...>
+            LAM Usage: /msg <recipient> <message...>
