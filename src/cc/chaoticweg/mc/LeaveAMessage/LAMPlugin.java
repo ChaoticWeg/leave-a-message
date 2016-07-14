@@ -1,6 +1,7 @@
 package cc.chaoticweg.mc.LeaveAMessage;
 
 import cc.chaoticweg.mc.LeaveAMessage.command.LAMCommandExecutor;
+import cc.chaoticweg.mc.LeaveAMessage.event.LAMLoginEventListener;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -22,6 +23,7 @@ public class LAMPlugin extends JavaPlugin {
         // TODO
 
         this.getCommand("msg").setExecutor(LAMCommandExecutor.getInstance(this));
+        this.getServer().getPluginManager().registerEvents(LAMLoginEventListener.getInstance(this), this);
 
         log.info("Enabled.");
     }
