@@ -4,3 +4,6 @@ lib/
 # Ignore Intellij IDEA project files
 .idea/
 *.iml
+
+# Ignore compiled class files
+out/
