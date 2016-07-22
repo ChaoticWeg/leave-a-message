@@ -37,8 +37,13 @@ public class LAMLoginEventListener implements Listener {
         }
 
         log.info(String.format("Player %s has %d unread messages.", player.getName(), msgCount));
-        player.sendMessage(String.format("[LAM] - You have %s%d%s unread message(s).", ChatColor.GOLD, msgCount, ChatColor.RESET));
-        player.sendMessage(String.format("[LAM] - Use %s/lam%s to check unread messages.", ChatColor.GOLD, ChatColor.RESET)); 
+
+        String[] messages = {
+                String.format("[LAM] - You have %s%d%s unread message(s).", ChatColor.GOLD, msgCount, ChatColor.RESET),
+                String.format("[LAM] - Use %s/lam%s to check unread messages.", ChatColor.GOLD, ChatColor.RESET)
+        };
+
+        player.sendMessage(messages);
     }
 
 
