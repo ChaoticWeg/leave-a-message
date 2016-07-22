@@ -2,7 +2,6 @@ package cc.chaoticweg.mc.LeaveAMessage.database;
 
 import com.avaje.ebean.validation.NotEmpty;
 import com.avaje.ebean.validation.NotNull;
-import org.bukkit.entity.Player;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,20 +9,26 @@ import javax.persistence.Table;
 import java.util.UUID;
 
 /**
- * Message class. Stores sender and recipient UUIDs, and message text
+ * Message class. Stores sender and uuidRecipient UUIDs, and message text
  */
 @Entity()
 @Table(name = "lam_message")
 public class LAMMessage {
 
-    /** pls no instantiate (except for {@link LAMMessage#build(UUID, UUID, String)}) */
-    private LAMMessage() {}
+    // do we need a default constructor?
+    public LAMMessage() {};
+
+    public LAMMessage(String senderName, UUID uuidRecipient, String content) {
+        this.setSenderName(senderName);
+        this.setUuidRecipient(uuidRecipient);
+        this.setContent(content);
+    }
 
     @Id private int id;
 
-    @NotNull private UUID uuidSender;
     @NotNull private UUID uuidRecipient;
-    @NotEmpty private String content;
+    @NotNull @NotEmpty private String senderName;
+    @NotNull @NotEmpty private String content;
 
     public int getId() {
         return id;
@@ -33,12 +38,12 @@ public class LAMMessage {
         this.id = id;
     }
 
-    public UUID getUuidSender() {
-        return uuidSender;
+    public String getSenderName() {
+        return senderName;
     }
 
-    public void setUuidSender(UUID uuidSender) {
-        this.uuidSender = uuidSender;
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 
     public UUID getUuidRecipient() {
@@ -57,14 +62,8 @@ public class LAMMessage {
         this.content = content;
     }
 
-    public static LAMMessage build(UUID uuidSender, UUID uuidRecipient, String content) {
-        LAMMessage result = new LAMMessage();
-
-        result.setUuidSender(uuidSender);
-        result.setUuidRecipient(uuidRecipient);
-        result.setContent(content);
-
-        return result;
+    public static LAMMessage build(String uuidSender, UUID recipient, String content) {
+        return new LAMMessage(uuidSender, recipient, content);
     }
 
 }
