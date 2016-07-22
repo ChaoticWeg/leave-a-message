@@ -7,3 +7,6 @@ lib/
 
 # Ignore compiled class files
 out/
+
+# Ignore local deploy script
+deploy-test.bat

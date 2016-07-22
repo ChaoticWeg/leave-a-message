@@ -1,12 +1,16 @@
 package cc.chaoticweg.mc.LeaveAMessage;
 
 import cc.chaoticweg.mc.LeaveAMessage.command.LAMCommandExecutor;
+import cc.chaoticweg.mc.LeaveAMessage.database.LAMDatabaseHandler;
+import cc.chaoticweg.mc.LeaveAMessage.database.LAMMessage;
 import cc.chaoticweg.mc.LeaveAMessage.event.LAMLoginEventListener;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -16,16 +20,36 @@ public class LAMPlugin extends JavaPlugin {
 
     private Logger log;
 
+    private LAMDatabaseHandler databaseHandler;
+    public LAMDatabaseHandler getDatabaseHandler() { return databaseHandler; }
+
     @Override
     public void onEnable() {
         this.log = this.getLogger();
 
-        // TODO
+        // initialize database handler
+        log.info("Initializing LAM database handler");
+        this.databaseHandler = new LAMDatabaseHandler(this);
+        databaseHandler.setup(); // don't forget this, lol
 
+        // set command and event handlers
         this.getCommand("msg").setExecutor(LAMCommandExecutor.getInstance(this));
         this.getServer().getPluginManager().registerEvents(LAMLoginEventListener.getInstance(this), this);
 
+        // done.
         log.info("Enabled.");
+    }
+
+    public void installDatabase() {
+        log.info("Installing database.");
+        this.installDDL();
+    }
+
+    @Override
+    public List<Class<?>> getDatabaseClasses() {
+        List<Class<?>> result = Lists.newArrayList();
+        result.add(LAMMessage.class);
+        return result;
     }
 
 
