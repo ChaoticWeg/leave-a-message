@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
+import java.util.UUID;
 
 public class LAMDatabaseHandler {
 
@@ -18,7 +19,7 @@ public class LAMDatabaseHandler {
         try {
             main.getDatabase().find(LAMMessage.class).findRowCount();
         } catch (PersistenceException ex) {
-            ex.printStackTrace();
+            main.getLogger().warning("Database read error, installing database");
             main.installDatabase();
         }
     }
@@ -27,9 +28,9 @@ public class LAMDatabaseHandler {
         main.getDatabase().save(message);
     }
 
-    public List<LAMMessage> getMessagesForPlayer(String uuid) {
+    public List<LAMMessage> getMessagesForPlayer(UUID uuidRecipient) {
         List<LAMMessage> result = Lists.newArrayList();
-        result.addAll(main.getDatabase().find(LAMMessage.class).where().ieq("uuidRecipient", uuid).findList());
+        result.addAll(main.getDatabase().find(LAMMessage.class).where().ieq("uuidRecipient", uuidRecipient.toString()).findList());
         return result;
     }
 
