@@ -59,9 +59,12 @@ public class LAMUtils {
      * @return The elements from firstIndex to lastIndex (inclusively)
      */
     public static String[] splice(String[] original, int firstIndex, int lastIndex) {
-        List<String> resultList = Lists.newArrayList();
-        resultList.addAll(Arrays.asList(original).subList(firstIndex, lastIndex + 1));
-        return (String[]) resultList.toArray();
+        int howManyElements = (lastIndex + 1) - firstIndex;
+        String[] result = new String[howManyElements];
+
+        System.arraycopy(original, firstIndex, result, 0, howManyElements);
+
+        return result;
     }
 
     /**
