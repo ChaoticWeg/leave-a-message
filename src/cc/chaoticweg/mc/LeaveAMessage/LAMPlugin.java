@@ -27,14 +27,16 @@ public class LAMPlugin extends JavaPlugin {
     public void onEnable() {
         this.log = this.getLogger();
 
-        // TODO
-
+        // initialize database handler
+        log.info("Initializing LAM database handler");
         this.databaseHandler = new LAMDatabaseHandler(this);
-        installDDL();
+        databaseHandler.setup(); // don't forget this, lol
 
+        // set command and event handlers
         this.getCommand("msg").setExecutor(LAMCommandExecutor.getInstance(this));
         this.getServer().getPluginManager().registerEvents(LAMLoginEventListener.getInstance(this), this);
 
+        // done.
         log.info("Enabled.");
     }
 

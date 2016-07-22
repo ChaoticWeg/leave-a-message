@@ -1,4 +1,5 @@
 main: cc.chaoticweg.mc.LeaveAMessage.LAMPlugin
+database: true
 
 name: LeaveAMessage
 version: 0.1
