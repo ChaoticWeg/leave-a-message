@@ -1,5 +1,6 @@
 package cc.chaoticweg.mc.LeaveAMessage;
 
+import cc.chaoticweg.mc.LeaveAMessage.command.LAMAdminCommandExecutor;
 import cc.chaoticweg.mc.LeaveAMessage.command.LAMMsgCommandExecutor;
 import cc.chaoticweg.mc.LeaveAMessage.database.LAMDatabaseHandler;
 import cc.chaoticweg.mc.LeaveAMessage.database.LAMMessage;
@@ -34,6 +35,7 @@ public class LAMPlugin extends JavaPlugin {
 
         // set command and event handlers
         this.getCommand("msg").setExecutor(new LAMMsgCommandExecutor(this));
+        this.getCommand("lam").setExecutor(new LAMAdminCommandExecutor(this));
         this.getServer().getPluginManager().registerEvents(LAMLoginEventListener.getInstance(this), this);
 
         // done.
