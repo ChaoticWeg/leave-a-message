@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 public abstract class LAMCommandExecutor implements CommandExecutor {
 
+    private LAMCommandExecutor() { /* disallow default constructor */ };
+
     LAMPlugin main;
     Logger log;
 
