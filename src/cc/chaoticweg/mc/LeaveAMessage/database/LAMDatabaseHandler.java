@@ -34,4 +34,8 @@ public class LAMDatabaseHandler {
         return result;
     }
 
+    public void deleteMessages(List<LAMMessage> messages) {
+        main.getDatabase().delete(messages);
+    }
+
 }
