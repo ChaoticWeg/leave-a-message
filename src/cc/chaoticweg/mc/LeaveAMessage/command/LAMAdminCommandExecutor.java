@@ -58,8 +58,13 @@ public class LAMAdminCommandExecutor extends LAMCommandExecutor {
         LAMDatabaseHandler dbh = main.getDatabaseHandler();
         dbh.deleteMessages(dbh.getMessagesForPlayer(uuid));
 
-        if (checkMessageCountGreaterThanZero(uuid))
+        if (checkMessageCountGreaterThanZero(uuid)) {
             log.warning("Unable to clear mailbox for " + sender.getName());
+            sender.sendMessage(String.format("[LAM] %sUnable to clear your mailbox.", ChatColor.RED));
+        }
+
+        else
+            sender.sendMessage(String.format("[LAM] %sMailbox cleared.", ChatColor.GREEN));
 
         return true;
     }
