@@ -77,17 +77,16 @@ public class LAMUtils {
 
     public static String formatDate(long millis) {
         int secSinceDate = Math.round(((new Date()).getTime() - millis) / 1000);
-        if (secSinceDate < 15) return "just now";
-        if (secSinceDate < 60) return "< 1m ago";
+        if (secSinceDate < 60) return "just now";
 
-        int minSinceDateRaw = secSinceDate / 60;
+        int minSinceDateRaw = Math.round((float)secSinceDate / 60);
         if (minSinceDateRaw < 60) return String.format("%dm ago", minSinceDateRaw);
 
 
-        int hrsSinceDateRaw = minSinceDateRaw / 60;
+        int hrsSinceDateRaw = Math.round((float)minSinceDateRaw / 60);
         if (hrsSinceDateRaw < 24) return String.format("%dh ago", hrsSinceDateRaw);
 
-        int daysSinceDateRaw = hrsSinceDateRaw / 24;
+        int daysSinceDateRaw = Math.round((float)hrsSinceDateRaw / 24);
         if ((daysSinceDateRaw / 7) < 4) return String.format("%dd ago", daysSinceDateRaw);
 
         return "more than a month ago";
