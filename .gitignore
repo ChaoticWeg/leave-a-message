@@ -10,3 +10,6 @@ out/
 
 # Ignore local deploy script
 deploy-test.bat
+
+# Ignore test files
+*Test.java
