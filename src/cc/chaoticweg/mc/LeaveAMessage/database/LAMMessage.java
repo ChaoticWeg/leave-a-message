@@ -79,8 +79,7 @@ public class LAMMessage {
         return new LAMMessage(uuidSender, recipient, content, sendDate);
     }
 
-    @Override
-    public String toString() {
+    public String getDisplayString() {
         String senderDisplayName = String.format("%s%s%s", ChatColor.YELLOW, this.getSenderName(), ChatColor.RESET);
         String dateDisplay = String.format("%s(%s)%s", ChatColor.GRAY, LAMUtils.formatDate(this.getSendDate()), ChatColor.RESET);
         return String.format("[LAM] <%s> %s %s", senderDisplayName, this.getContent(), dateDisplay);
