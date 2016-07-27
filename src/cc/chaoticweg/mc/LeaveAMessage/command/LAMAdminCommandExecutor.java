@@ -1,6 +1,7 @@
 package cc.chaoticweg.mc.LeaveAMessage.command;
 
 import cc.chaoticweg.mc.LeaveAMessage.LAMPlugin;
+import cc.chaoticweg.mc.LeaveAMessage.LAMUtils;
 import cc.chaoticweg.mc.LeaveAMessage.database.LAMDatabaseHandler;
 import cc.chaoticweg.mc.LeaveAMessage.database.LAMMessage;
 import org.bukkit.ChatColor;
@@ -31,9 +32,7 @@ public class LAMAdminCommandExecutor extends LAMCommandExecutor {
             return true;
         }
 
-        Player player = (Player) sender;
         LAMDatabaseHandler dbh = this.main.getDatabaseHandler();
-
         List<LAMMessage> messages = dbh.getMessagesForPlayer(((Player) sender).getUniqueId());
 
         if (messages.size() == 0) {
@@ -42,16 +41,13 @@ public class LAMAdminCommandExecutor extends LAMCommandExecutor {
         }
 
         String[] msgsDisplay = new String[messages.size()];
-        for (int i = 0; i < messages.size(); i++) {
-            LAMMessage msg = messages.get(i);
 
-            String senderDisplayName = String.format("%s%s%s", ChatColor.YELLOW, msg.getSenderName(), ChatColor.RESET);
-            String thisMessage = String.format("[LAM] <%s> %s", senderDisplayName, msg.getContent());
+        for (int i = 0; i < messages.size(); i++)
+            msgsDisplay[i] = messages.get(i).toString();
 
-            msgsDisplay[i] = thisMessage;
-        }
-
-        sender.sendMessage(String.format("[LAM] Dumping %s%d%s unread message(s)...", ChatColor.GREEN, msgsDisplay.length, ChatColor.RESET));
+        sender.sendMessage(String.format("[LAM] Showing all unread messages for %s%s%s...",
+                ChatColor.GREEN, sender.getName(), ChatColor.RESET));
+        // send all messages
         sender.sendMessage(msgsDisplay);
 
         return true;
