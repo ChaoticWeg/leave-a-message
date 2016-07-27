@@ -10,6 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -59,7 +60,7 @@ public class LAMMsgCommandExecutor extends LAMCommandExecutor implements Command
 
                 String senderName = sender.getName();
 
-                LAMMessage message = LAMMessage.build(senderName, uuidRecipient, messageContent);
+                LAMMessage message = LAMMessage.build(senderName, uuidRecipient, messageContent, new Date());
                 main.getDatabaseHandler().storeMessage(message);
 
                 sender.sendMessage(String.format("[LAM] Left message for %s%s%s.", ChatColor.GOLD, recipientPlayer.getName(), ChatColor.RESET));

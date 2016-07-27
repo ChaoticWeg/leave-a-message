@@ -6,6 +6,7 @@ import com.avaje.ebean.validation.NotNull;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -18,7 +19,8 @@ public class LAMMessage {
     // do we need a default constructor?
     public LAMMessage() {};
 
-    public LAMMessage(String senderName, UUID uuidRecipient, String content) {
+    public LAMMessage(String senderName, UUID uuidRecipient, String content, Date sendDate) {
+        this.setSendDate(sendDate);
         this.setSenderName(senderName);
         this.setUuidRecipient(uuidRecipient);
         this.setContent(content);
@@ -26,9 +28,10 @@ public class LAMMessage {
 
     @Id private int id;
 
-    @NotNull private UUID uuidRecipient;
     @NotNull @NotEmpty private String senderName;
+    @NotNull private UUID uuidRecipient;
     @NotNull @NotEmpty private String content;
+    @NotNull private Date sendDate;
 
     public int getId() {
         return id;
@@ -62,8 +65,15 @@ public class LAMMessage {
         this.content = content;
     }
 
-    public static LAMMessage build(String uuidSender, UUID recipient, String content) {
-        return new LAMMessage(uuidSender, recipient, content);
+    public Date getSendDate() {
+        return sendDate;
     }
 
+    public void setSendDate(Date sendDate) {
+        this.sendDate = sendDate;
+    }
+
+    public static LAMMessage build(String uuidSender, UUID recipient, String content, Date sendDate) {
+        return new LAMMessage(uuidSender, recipient, content, sendDate);
+    }
 }
