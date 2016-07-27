@@ -11,4 +11,8 @@ commands:
     msg:
         description: Leave a message for another player.
         usage: |
-            LAM Usage: /msg <recipient> <message...>
+            Usage: /msg <recipient> <message...>
+    lam:
+        description: TODO /lam description
+        usage: |
+            Usage: /lam

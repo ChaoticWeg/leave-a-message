@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.logging.Logger;
 
@@ -23,13 +23,14 @@ public class LAMLoginEventListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerLogin(PlayerLoginEvent event) {
+    public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        log.info("Player logged in: " + player.getName());
 
-        // TODO database handler: search for messages with this player as the recipient
         int msgCount = main.getDatabaseHandler().getMessagesForPlayer(player.getUniqueId()).size();
+        alertPlayerMessageCount(player, msgCount);
+    }
 
+    private void alertPlayerMessageCount(Player player, int msgCount) {
         if (msgCount < 1) {
             // There are no messages for the player. Bail out now.
             log.info(String.format("Player %s has no unread messages.", player.getName()));
@@ -37,8 +38,13 @@ public class LAMLoginEventListener implements Listener {
         }
 
         log.info(String.format("Player %s has %d unread messages.", player.getName(), msgCount));
-        player.sendMessage(String.format("[LAM] - You have %s%d%s unread message(s).", ChatColor.GOLD, msgCount, ChatColor.RESET));
-        player.sendMessage(String.format("[LAM] - Use %s/lam%s to check unread messages.", ChatColor.GOLD, ChatColor.RESET));
+
+        String[] messages = {
+                String.format("[LAM] - You have %s%d%s unread message(s).", ChatColor.GOLD, msgCount, ChatColor.RESET),
+                String.format("[LAM] - Use %s/lam%s to check unread messages.", ChatColor.GOLD, ChatColor.RESET)
+        };
+
+        player.sendMessage(messages);
     }
 
 
