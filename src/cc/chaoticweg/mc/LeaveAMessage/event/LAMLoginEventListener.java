@@ -25,11 +25,12 @@ public class LAMLoginEventListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        log.info("Player logged in: " + player.getName());
 
-        // TODO database handler: search for messages with this player as the recipient
         int msgCount = main.getDatabaseHandler().getMessagesForPlayer(player.getUniqueId()).size();
+        alertPlayerMessageCount(player, msgCount);
+    }
 
+    private void alertPlayerMessageCount(Player player, int msgCount) {
         if (msgCount < 1) {
             // There are no messages for the player. Bail out now.
             log.info(String.format("Player %s has no unread messages.", player.getName()));
