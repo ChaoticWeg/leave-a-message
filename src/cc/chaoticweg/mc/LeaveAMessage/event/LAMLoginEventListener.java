@@ -32,12 +32,10 @@ public class LAMLoginEventListener implements Listener {
         // bail out if there are no messages for the player
         if (msgCount < 1) return;
 
-        String[] messages = {
-                String.format("[LAM] You have %s%d%s unread message(s).", ChatColor.GOLD, msgCount, ChatColor.RESET),
-                String.format("[LAM] Use %s/lam%s to check unread messages.", ChatColor.GOLD, ChatColor.RESET)
-        };
-
-        player.sendMessage(messages);
+        player.sendMessage(
+                String.format("[LAM] %s%d%s unread message(s). Use %s/lam%s to read.",
+                        ChatColor.GOLD, msgCount, ChatColor.RESET, ChatColor.GOLD, ChatColor.RESET)
+        );
     }
 
 
