@@ -76,45 +76,20 @@ public class LAMUtils {
     }
 
     public static String formatDate(long millis) {
+        int secSinceDate = Math.round(((new Date()).getTime() - millis) / 1000);
+        if (secSinceDate < 60) return "just now";
 
-        long secSinceDate = ((new Date()).getTime() - millis) / 1000;
-
-        if (secSinceDate >= Integer.MAX_VALUE) {
-            // if it's more than the max integer, fuck it
-            return "a long time ago";
-        }
-
-        if (secSinceDate < 60) {
-            // less than one minute ago
-            return "just now";
-        }
+        int minSinceDateRaw = Math.round((float)secSinceDate / 60);
+        if (minSinceDateRaw < 60) return String.format("%dm ago", minSinceDateRaw);
 
 
-        int minSinceDateRaw = Math.round((float) secSinceDate / 60);
+        int hrsSinceDateRaw = Math.round((float)minSinceDateRaw / 60);
+        if (hrsSinceDateRaw < 24) return String.format("%dh ago", hrsSinceDateRaw);
 
-        if (minSinceDateRaw < 60.0) {
-            // less than one hour ago
-            return String.format("%d min ago", minSinceDateRaw);
-        }
+        int daysSinceDateRaw = Math.round((float)hrsSinceDateRaw / 24);
+        if ((daysSinceDateRaw / 7) < 4) return String.format("%dd ago", daysSinceDateRaw);
 
-
-        int hrsSinceDateRaw = Math.round(minSinceDateRaw / 60);
-
-        if (hrsSinceDateRaw < 24) {
-            // less than 24 hours ago
-            return String.format("%d hrs ago", hrsSinceDateRaw);
-        }
-
-        int daysSinceDateRaw = Math.round(hrsSinceDateRaw / 24);
-
-        if (daysSinceDateRaw < 31) {
-            // less than a month ago
-            return String.format("%d days ago", daysSinceDateRaw);
-        }
-
-        // TODO more than this
-        return "at some point in the past";
-
+        return "more than a month ago";
     }
 
     public static String formatDate(Date date) { return formatDate(date.getTime()); }

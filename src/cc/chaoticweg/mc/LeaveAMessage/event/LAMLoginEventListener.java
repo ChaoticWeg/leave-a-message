@@ -15,11 +15,9 @@ import java.util.logging.Logger;
 public class LAMLoginEventListener implements Listener {
 
     private LAMPlugin main;
-    private Logger log;
 
     private LAMLoginEventListener(LAMPlugin main) {
         this.main = main;
-        this.log = main.getLogger();
     }
 
     @EventHandler
@@ -31,20 +29,13 @@ public class LAMLoginEventListener implements Listener {
     }
 
     private void alertPlayerMessageCount(Player player, int msgCount) {
-        if (msgCount < 1) {
-            // There are no messages for the player. Bail out now.
-            log.info(String.format("Player %s has no unread messages.", player.getName()));
-            return;
-        }
+        // bail out if there are no messages for the player
+        if (msgCount < 1) return;
 
-        log.info(String.format("Player %s has %d unread messages.", player.getName(), msgCount));
-
-        String[] messages = {
-                String.format("[LAM] - You have %s%d%s unread message(s).", ChatColor.GOLD, msgCount, ChatColor.RESET),
-                String.format("[LAM] - Use %s/lam%s to check unread messages.", ChatColor.GOLD, ChatColor.RESET)
-        };
-
-        player.sendMessage(messages);
+        player.sendMessage(
+                String.format("[LAM] %s%d%s unread message(s). Use %s/lam%s to read.",
+                        ChatColor.GOLD, msgCount, ChatColor.RESET, ChatColor.GOLD, ChatColor.RESET)
+        );
     }
 
 

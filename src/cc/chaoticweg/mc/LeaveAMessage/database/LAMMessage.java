@@ -1,7 +1,9 @@
 package cc.chaoticweg.mc.LeaveAMessage.database;
 
+import cc.chaoticweg.mc.LeaveAMessage.LAMUtils;
 import com.avaje.ebean.validation.NotEmpty;
 import com.avaje.ebean.validation.NotNull;
+import org.bukkit.ChatColor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -75,5 +77,11 @@ public class LAMMessage {
 
     public static LAMMessage build(String uuidSender, UUID recipient, String content, Date sendDate) {
         return new LAMMessage(uuidSender, recipient, content, sendDate);
+    }
+
+    public String getDisplayString() {
+        String senderDisplayName = String.format("%s%s%s", ChatColor.YELLOW, this.getSenderName(), ChatColor.RESET);
+        String dateDisplay = String.format("%s(%s)%s", ChatColor.GRAY, LAMUtils.formatDate(this.getSendDate()), ChatColor.RESET);
+        return String.format("[LAM] <%s> %s %s", senderDisplayName, this.getContent(), dateDisplay);
     }
 }
